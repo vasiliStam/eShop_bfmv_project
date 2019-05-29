@@ -42,6 +42,12 @@ else {
   );
 }
 }
+$total = 0;
+$totalQ = 0;
+foreach ($_SESSION['shopping_cart'] as $key => $product){
+  $total = $total + ($product['quantity'] * $product['price']);
+  $totalQ = $totalQ + $product['quantity'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,8 +61,8 @@ else {
 <body>
 <div class="navi">
   <ul>
-    <li>Total: €</li>
-    <li>Items:</li>
+    <li>Total: € <?php print_r($total) ?></li>
+    <li>Items: <?php print_r($totalQ) ?></li>
     <li class="left"><a class="active" href="index.html">Home</a></li>
     <li class="left"><a class="active" href="eshop.php">e-Shop</a></li>
   </ul>
@@ -87,6 +93,55 @@ if($result):
     endwhile;
   endif;
 endif;
-?>  
+?>
+<div style="clear:both;"></div>
+<?php
+if (isset($_SESSION['shopping_cart'])):
+if (count($_SESSION['shopping_cart']) > 0):
+?>
+<br />
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th colspan="6"><h3>Order Details</h3></th>
+    </tr>
+    <tr>
+      <th width="10%">Image</th>
+      <th width="30%">Product Name</th>
+      <th width="10%">Quantity</th>
+      <th width="20%">Price</th>
+      <th width="15%">Total</th>
+      <th width="5%">Action</th>
+    </tr>
+    <?php
+    foreach ($_SESSION['shopping_cart'] as $key => $product):
+    ?>
+      <tr>
+        <td><img src="<?php echo $product['image'] ?>" style="width: 55px; height: 55px;"/></td>
+        <td><?php echo $product['name']; ?></td>
+        <td><?php echo $product['quantity']; ?></td>
+        <td>€ <?php echo $product['price']; ?></td>
+        <td>€ <?php echo number_format($product['quantity'] * $product['price'], 2); ?></td>
+        <td>
+          <a href="eshop.php?action=delete&id=<?php echo $product['id']; ?>">
+            <div class="btn-danger">Remove</div>
+          </a>
+        </td>
+      </tr>
+    <?php
+    endforeach;
+    ?>
+    <tr>
+      <td colspan="4" align="right">Total</td>
+      <td align="right">€ <?php echo number_format($total, 2); ?></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+<?php
+endif;
+endif;
+?>
+</div>
 </body>
 </html>
