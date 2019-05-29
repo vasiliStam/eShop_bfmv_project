@@ -1,0 +1,31 @@
+body {
+  background: #e6ffff;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.navi ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #000000;
+  width: 100%;
+}
+.navi li {
+  float: right;
+  border-right:1px solid #bbb;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+}
+.navi li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+li.left {
+	float: left;
+	border-right: none;
+}
